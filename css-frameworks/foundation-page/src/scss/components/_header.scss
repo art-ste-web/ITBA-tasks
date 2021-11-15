@@ -1,4 +1,10 @@
-h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+.header {
+    background: url('../images/header-bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
