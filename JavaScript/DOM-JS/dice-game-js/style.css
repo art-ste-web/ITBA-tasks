@@ -10,7 +10,13 @@ body {
     padding-top: 3rem;
     box-sizing: border-box;
     font-family: 'Lato', sans-serif;
+    position: relative;
 }
+ul {
+    list-style-type: none;
+}
+
+/*global button*/
 button {
     display: flex;
     align-items: center;
@@ -42,9 +48,10 @@ button img {
     min-height: 90%;
     border-radius: .5rem;
     box-shadow: 8px 8px 16px rgba(0, 0, 0, .2);
-    
+    position: relative;
+    padding: 1rem;
 }
-
+/*player panel*/
 .wrapper .player-panel {
     width: 40%;
     display: flex;
@@ -53,6 +60,7 @@ button img {
     flex-direction: column;
     opacity: .5;
 }
+/*active player panel*/
 .wrapper .active {
     opacity: 1;
 }
@@ -97,6 +105,8 @@ button img {
 .wrapper .player-panel .player-current-box .player-current-score {
     font-size: 3rem;
 }
+
+/*central column (buttons, dices)*/
 .wrapper .central-section {
     display: flex;
     flex-direction: column;
@@ -106,4 +116,43 @@ button img {
 }
 .wrapper .central-section .dice {
     width: 8rem;
+}
+
+/*new game settings popup*/
+.wrapper .new-game-popup {
+    position: absolute;
+    width: 60%;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(88, 182, 245, 0.96);
+    z-index: 10;
+    border-radius: .5rem;
+    padding: 1rem;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, .2);
+    display: none;
+}
+.wrapper .new-game-popup li {
+    margin-top: 1rem;
+}
+.wrapper .new-game-popup label {
+    font-size: 1.1rem;
+    margin-right: .5rem;
+}
+.wrapper .new-game-popup input {
+    font-size: 1.2rem;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, .8);
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: none;
+}
+.hidden {
+    display: none;
 }

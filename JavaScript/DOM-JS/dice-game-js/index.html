@@ -11,16 +11,45 @@
     <title>Dice game</title>
 </head>
 <body>
-
+    <div class="overlay"></div>
     <main class="wrapper">
+        <!--New game settings popup-->
+        <div class="new-game-popup">
+         
+          <ul>
+            <li>
+              <h2>New game options</h2>
+            </li>
+            <li>
+              <label for="player_1_name">Player 1 name</label>
+              <input type="text" name="" id="player_1_name" value="Player 1">
+            </li>
+            <li>
+              <label for="player_2_name">Player 2 name</label>
+              <input type="text" name="" id="player_2_name" value="Player 2">
+            </li>
+            <li>
+              <label for="attempts_num">Number of attempts for each round</label>
+              <input type="number" name="" id="attempts_num" value="3" min="1" max="100">
+            </li>
+            <li>
+              <label for="max_score_num">Max score for win</label>
+              <input type="number" name="" id="max_score_num" value="100" min="20" max="200">
+            </li>
+            <li>
+              <button class="confirm-settings-btn">Start game</button>
+            </li>
+          </ul>
+        </div>
+        
         <!--Player 1 panel (left)-->
-        <div class="player-panel player-0-panel active">
-            <div class="player-name" id="name-0">Player 1</div>
+        <div class="player-panel player-1-panel">
+            <div class="player-name" id="p_one_name">Player 1</div>
             <div class="player-score-label">Total score</div>
-            <div class="player-score" id="score-0">43</div>
+            <div class="player-score" id="p_1_total">43</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
-                <div class="player-current-score" id="current-0">11</div>
+                <div class="player-current-score" id="p_1_current">11</div>
             </div>
         </div>
 
@@ -32,6 +61,8 @@
             <!--Dice img-->
             <img src="img/d-5.png" alt="Dice" class="dice" />
             <img src="img/d-6.png" alt="Dice" class="dice" />
+            <!--Attempts number indication-->
+            <div class="attempts-numb"><span class="cur-pl-name"></span> attempts: <span class="cur-attempt">0</span> of <span class="total-attempts">0</span></div>
             <!--Btn "Roll dice"-->
             <button class="btn-roll">
                 <img src="img/dice-icon.svg" alt=""> Roll dice
@@ -45,13 +76,13 @@
         </div>
 
         <!--Player 2 panel (right)-->
-        <div class="player-panel player-1-panel">
-            <div class="player-name" id="name-1">Player 2</div>
+        <div class="player-panel player-2-panel">
+            <div class="player-name" id="p_two_name">Player 2</div>
             <div class="player-score-label">Total score</div>
-            <div class="player-score" id="score-1">72</div>
+            <div class="player-score" id="p_2_total">72</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
-                <div class="player-current-score" id="current-1">0</div>
+                <div class="player-current-score" id="p_2_current">0</div>
             </div>
         </div>
 
