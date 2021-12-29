@@ -5,14 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
     <title>Dice game</title>
 </head>
 <body>
 
     <main class="wrapper">
         <!--Player 1 panel (left)-->
-        <div class="player-0-panel active">
+        <div class="player-panel player-0-panel active">
             <div class="player-name" id="name-0">Player 1</div>
+            <div class="player-score-label">Total score</div>
             <div class="player-score" id="score-0">43</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
@@ -25,7 +29,9 @@
             <button class="btn-new">
                 <img src="img/plus-icon.svg" alt=""> New game
             </button>
+            <!--Dice img-->
             <img src="img/d-5.png" alt="Dice" class="dice" />
+            <img src="img/d-6.png" alt="Dice" class="dice" />
             <!--Btn "Roll dice"-->
             <button class="btn-roll">
                 <img src="img/dice-icon.svg" alt=""> Roll dice
@@ -39,8 +45,9 @@
         </div>
 
         <!--Player 2 panel (right)-->
-        <div class="player-1-panel">
+        <div class="player-panel player-1-panel">
             <div class="player-name" id="name-1">Player 2</div>
+            <div class="player-score-label">Total score</div>
             <div class="player-score" id="score-1">72</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>

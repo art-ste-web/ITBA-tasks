@@ -1,4 +1,6 @@
 body {
+    min-width: 960px;
+    min-height: 640px;
     height: 100vh;
     background: no-repeat center center url('img/background.jpeg');
     background-size: cover;
@@ -6,6 +8,8 @@ body {
     margin: 0;
     padding: 0;
     padding-top: 3rem;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
 }
 button {
     display: flex;
@@ -13,30 +17,91 @@ button {
     padding: .5rem 1rem;
     cursor: pointer;
     border: none;
+    border-radius: 4px;
+    background: rgb(255, 255, 255);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
+    font-weight: 300;
+    font-size: 1.1rem;
+    transition: all .25s ease-in;
 }
+button:hover {
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .2);
+    transition: all .25s ease-in;
+}
+
 button img {
     width: 2rem;
     margin-right: .5rem;
     
 }
 .wrapper {
-    width: 60%;
+    width: 70%;
     background: rgba(255, 255, 255, .8);
     margin: 0 auto;
     display: flex;
     min-height: 90%;
     border-radius: .5rem;
     box-shadow: 8px 8px 16px rgba(0, 0, 0, .2);
+    
 }
 
-.wrapper .player-0-panel,
-.wrapper .player-1-panel {
+.wrapper .player-panel {
     width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: .5;
+}
+.wrapper .active {
+    opacity: 1;
+}
+.wrapper .active .player-name::after {
+    content: '';
+    padding: .1rem;
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2rem;
+    width: 2rem;
+    background: url('img/dice-icon.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.wrapper .player-panel .player-name {
+    font-size: 3rem;
+    font-weight: 300;
+    position: relative;
+}
+.wrapper .player-panel .player-score {
+    font-size: 5rem;
+    color: rgb(192, 71, 2);
+}
+.wrapper .player-panel .player-score-label {
+    margin-top: 3rem;
+    color: #808080;
+}
+.wrapper .player-panel .player-current-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-top: 2rem;
+}
+.wrapper .player-panel .player-current-box .player-current-score {
+    font-size: 3rem;
 }
 .wrapper .central-section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     width: 20%;
 }
 .wrapper .central-section .dice {
