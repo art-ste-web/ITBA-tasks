@@ -74,22 +74,28 @@ function setPlayerNames() {
 //start game, make active player 1 panel (left)
 function startPlayGame() {
     let activePlayer = 'player1';
+    let isPlayerOneActive = true;
     const gameSet = getGameSettings();
     const rollBtn = document.querySelector('.btn-roll');
     const attemptsNumTotal = document.querySelector('.total-attempts');
     const attemptsNumRemain = document.querySelector('.cur-attempt');
-
+    let attNum = gameSet.attemptNum;
     
     attemptsNumRemain.innerHTML = gameSet.attemptNum;
     attemptsNumTotal.innerHTML = gameSet.attemptNum;
     changeActivePlayer(activePlayer);
     rollBtn.addEventListener('click',()=>{
+        //let attemptNum = gameSet.attemptNum;
+        let attRemain = attNum  -= 1;
         
-        attemptsNumRemain.innerHTML = gameSet.attemptNum -= 1;
-        if(gameSet.attemptNum === 0) {
-            activePlayer = 'player2';
+        attemptsNumRemain.innerHTML = attRemain;
+        if(attRemain === 0) {
+            isPlayerOneActive = !isPlayerOneActive;
+            attemptsNumRemain.innerHTML = gameSet.attemptNum;
+            attemptsNumTotal.innerHTML = gameSet.attemptNum;
+            
         }
-        changeActivePlayer(activePlayer);
+        changeActivePlayer(isPlayerOneActive);
         generateDiceNumbers();
         console.log('click');
     })
@@ -112,12 +118,12 @@ function changeActivePlayer(activePlayer) {
     const playerOnePanel = document.querySelector('.player-1-panel');
     const playerTwoPanel = document.querySelector('.player-2-panel');
     const attemptsNumPlayerName = document.querySelector('.cur-pl-name');
-    if(activePlayer === 'player1') {
+    if(activePlayer) {
         playerOnePanel.classList.add('active');
         playerTwoPanel.classList.remove('active');
         attemptsNumPlayerName.innerHTML = gameSet.pOneName;
     }
-    else if (activePlayer === 'player2') {
+    else {
         playerTwoPanel.classList.add('active');
         playerOnePanel.classList.remove('active');
         attemptsNumPlayerName.innerHTML = gameSet.pTwoName;
