@@ -73,59 +73,103 @@ function setPlayerNames() {
 
 //start game, make active player 1 panel (left)
 function startPlayGame() {
-    let activePlayer = 'player1';
-    let isPlayerOneActive = true;
     const gameSet = getGameSettings();
     const rollBtn = document.querySelector('.btn-roll');
     const attemptsNumTotal = document.querySelector('.total-attempts');
     const attemptsNumRemain = document.querySelector('.cur-attempt');
-    let attNum = gameSet.attemptNum;
     
-    attemptsNumRemain.innerHTML = gameSet.attemptNum;
-    attemptsNumTotal.innerHTML = gameSet.attemptNum;
-    changeActivePlayer(activePlayer);
-    rollBtn.addEventListener('click',()=>{
-        //let attemptNum = gameSet.attemptNum;
-        let attRemain = attNum  -= 1;
-        
-        attemptsNumRemain.innerHTML = attRemain;
-        if(attRemain === 0) {
-            isPlayerOneActive = !isPlayerOneActive;
-            attemptsNumRemain.innerHTML = gameSet.attemptNum;
-            attemptsNumTotal.innerHTML = gameSet.attemptNum;
-            
+    let pOneMsg = `${gameSet.pOneName}, roll dice to define who will start the game. A player with less points win.`;
+    showMessage(pOneMsg);
+    activatePlayerOne();
+    
+    rollBtn.addEventListener('click', whoRollFirst);
+
+
+
+}
+
+function showMessage(message) {
+    const messageBox = document.querySelector('.message-box');
+    messageBox.innerHTML = message;
+}
+
+function whoRollFirst() {
+    const getNames = getGameSettings();
+    let initScore = [];
+    let pOneScore = generateDiceNumbers();
+    initScore.push(pOneScore);
+    displayPlayerOneCurrentScore(pOneScore);
+    activatePlayerTwo();
+    let pTwoMsg = `Now ${getNames.pTwoName} roll dice.`
+    showMessage(pTwoMsg);
+    const rollBtn = document.querySelector('.btn-roll');
+    rollBtn.removeEventListener('click', whoRollFirst);
+    let pTwoInitRoll = ()=>{
+        let pTwoScore = generateDiceNumbers();
+        initScore.push(pTwoScore);
+        displayPlayerTwoCurrentScore(pTwoScore);
+        rollBtn.removeEventListener('click', pTwoInitRoll);
+        if(initScore[0]<initScore[1]) {
+            let msg = `${getNames.pOneName} starts game first!`;
+            showMessage(msg);
+            activatePlayerOne();
+            rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Start!'
         }
-        changeActivePlayer(isPlayerOneActive);
-        generateDiceNumbers();
-        console.log('click');
-    })
+        else if(initScore[0]>initScore[1]) {
+            let msg = `${getNames.pTwoName} starts game first!`;
+            showMessage(msg);
+            rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Start!';
+        }
+        else {
+            let msg = `Both players have same number of points. ${getNames.pOneName} try again!`;
+            showMessage(msg);
+            rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Try again!'
+            console.log('same number');
+            rollBtn.addEventListener('click', whoRollFirst);
+        }
+        console.log(initScore);
+    }
+    rollBtn.addEventListener('click', pTwoInitRoll);
+    
+    
+}
 
+function activatePlayerOne() {
+    const playerOnePanel = document.querySelector('.player-1-panel');
+    const playerTwoPanel = document.querySelector('.player-2-panel');
+    playerOnePanel.classList.add('active');
+    playerTwoPanel.classList.remove('active');
+}
 
+function activatePlayerTwo() {
+    const playerOnePanel = document.querySelector('.player-1-panel');
+    const playerTwoPanel = document.querySelector('.player-2-panel');
+    playerTwoPanel.classList.add('active');
+    playerOnePanel.classList.remove('active');
+}
 
+function displayPlayerOneCurrentScore(score) {
+    const playerOneCurrentScore = document.querySelector('#p_1_current');
+    playerOneCurrentScore.innerHTML = score;
+}
+
+function displayPlayerTwoCurrentScore(score) {
+    const playerTwoCurrentScore = document.querySelector('#p_2_current');
+    playerTwoCurrentScore.innerHTML = score;
 }
 
 //generate random numbers for dice
 function generateDiceNumbers() {
+    const topDicePic = document.getElementById('dice_1');
+    const bottomDicePic = document.getElementById('dice_2');
     let diceOne = Math.floor(Math.random()*6);
     let diceTwo = Math.floor(Math.random()*6);
+    topDicePic.src = `img/d-${diceOne+1}.png`;
+    bottomDicePic.src = `img/d-${diceTwo+1}.png`;
     let totalScore = (diceOne+1)+(diceTwo+1);
+    return totalScore;
     console.log(totalScore);
 }
 
-//change active player
-function changeActivePlayer(activePlayer) {
-    const gameSet = getGameSettings();
-    const playerOnePanel = document.querySelector('.player-1-panel');
-    const playerTwoPanel = document.querySelector('.player-2-panel');
-    const attemptsNumPlayerName = document.querySelector('.cur-pl-name');
-    if(activePlayer) {
-        playerOnePanel.classList.add('active');
-        playerTwoPanel.classList.remove('active');
-        attemptsNumPlayerName.innerHTML = gameSet.pOneName;
-    }
-    else {
-        playerTwoPanel.classList.add('active');
-        playerOnePanel.classList.remove('active');
-        attemptsNumPlayerName.innerHTML = gameSet.pTwoName;
-    }
-}
+
+

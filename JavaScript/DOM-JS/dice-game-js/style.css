@@ -51,6 +51,8 @@ button img {
     position: relative;
     padding: 1rem;
 }
+
+
 /*player panel*/
 .wrapper .player-panel {
     width: 40%;
@@ -85,7 +87,7 @@ button img {
 }
 .wrapper .player-panel .player-score {
     font-size: 5rem;
-    color: rgb(192, 71, 2);
+    color: #c04702;
 }
 .wrapper .player-panel .player-score-label {
     margin-top: 3rem;
@@ -113,11 +115,22 @@ button img {
     align-items: center;
     justify-content: space-around;
     width: 20%;
+    padding-bottom: 4rem;
 }
 .wrapper .central-section .dice {
     width: 8rem;
 }
-
+.wrapper .central-section .message-box {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    margin: 1rem;
+    color: #fff;
+    font-size: 1.4rem;
+    background-color: #c04702;
+    border-radius: 4px;
+    padding: .5rem;
+}
 /*new game settings popup*/
 .wrapper .new-game-popup {
     position: absolute;
