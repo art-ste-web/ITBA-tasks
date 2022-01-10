@@ -78,10 +78,13 @@ function startPlayGame() {
     const attemptsNumTotal = document.querySelector('.total-attempts');
     const attemptsNumRemain = document.querySelector('.cur-attempt');
     
-    let pOneMsg = `${gameSet.pOneName}, roll dice to define who will start the game. A player with less points win.`;
+    let pOneMsg = `<span class='h-text'>${gameSet.pOneName}</span>, roll the dice to play who will start the game. A player with less points win.`;
     showMessage(pOneMsg);
     activatePlayerOne();
-    
+    //remove events listeners from roll btn
+    rollBtn.removeEventListener('click', pOneRolling);
+    rollBtn.removeEventListener('click', pTwoRolling);
+
     rollBtn.addEventListener('click', whoRollFirst);
 
 
@@ -100,7 +103,7 @@ function whoRollFirst() {
     initScore.push(pOneScore);
     displayPlayerOneCurrentScore(pOneScore);
     activatePlayerTwo();
-    let pTwoMsg = `Now ${getNames.pTwoName} roll dice.`
+    let pTwoMsg = `Now <span class='h-text'>${getNames.pTwoName}</span> roll the dice.`
     showMessage(pTwoMsg);
     const rollBtn = document.querySelector('.btn-roll');
     rollBtn.removeEventListener('click', whoRollFirst);
@@ -110,18 +113,20 @@ function whoRollFirst() {
         displayPlayerTwoCurrentScore(pTwoScore);
         rollBtn.removeEventListener('click', pTwoInitRoll);
         if(initScore[0]<initScore[1]) {
-            let msg = `${getNames.pOneName} starts game first!`;
+            let msg = `<span class='h-text'>${getNames.pOneName}</span> starts the game first! <span class='h-text'>${initScore[0]}</span> less than <span class='h-text'>${initScore[1]}</span>.`;
             showMessage(msg);
             activatePlayerOne();
             rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Start!'
+            rollBtn.addEventListener('click', pOneRolling);
         }
         else if(initScore[0]>initScore[1]) {
-            let msg = `${getNames.pTwoName} starts game first!`;
+            let msg = `<span class='h-text'>${getNames.pTwoName}</span> starts the game first! <span class='h-text'>${initScore[1]}</span> less than <span class='h-text'>${initScore[0]}</span>.`;
             showMessage(msg);
             rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Start!';
+            rollBtn.addEventListener('click', pTwoRolling);
         }
         else {
-            let msg = `Both players have same number of points. ${getNames.pOneName} try again!`;
+            let msg = `Both players have same number of points. <span class='h-text'>${getNames.pOneName}</span> try again!`;
             showMessage(msg);
             rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Try again!'
             console.log('same number');
@@ -134,11 +139,31 @@ function whoRollFirst() {
     
 }
 
+function pOneRolling() {
+    console.log('player one starts');
+    resetScores();
+    let curScore = generateDiceNumbers();
+    let roundScore = curScore;
+    console.log(curScore);
+    displayPlayerOneCurrentScore(curScore);
+    let msg = `Youre score is <span class='h-text'>${curScore}</span>`
+    showMessage(msg);
+}
+
+function pTwoRolling() {
+    console.log('player two starts');
+    resetScores();
+    let curScore = generateDiceNumbers();
+    console.log(curScore);
+}
+
+
 function activatePlayerOne() {
     const playerOnePanel = document.querySelector('.player-1-panel');
     const playerTwoPanel = document.querySelector('.player-2-panel');
     playerOnePanel.classList.add('active');
     playerTwoPanel.classList.remove('active');
+    
 }
 
 function activatePlayerTwo() {
@@ -164,8 +189,12 @@ function generateDiceNumbers() {
     const bottomDicePic = document.getElementById('dice_2');
     let diceOne = Math.floor(Math.random()*6);
     let diceTwo = Math.floor(Math.random()*6);
+    let turnAngelDiceOne = (diceOne+1)*6;
+    let turnAngelDiceTwo = (diceTwo+1)*3;
     topDicePic.src = `img/d-${diceOne+1}.png`;
     bottomDicePic.src = `img/d-${diceTwo+1}.png`;
+    topDicePic.style.transform = `rotate(${turnAngelDiceOne}deg)`;
+    bottomDicePic.style.transform = `rotate(${turnAngelDiceTwo}deg)`;
     let totalScore = (diceOne+1)+(diceTwo+1);
     return totalScore;
     console.log(totalScore);

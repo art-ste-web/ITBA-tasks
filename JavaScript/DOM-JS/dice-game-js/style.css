@@ -131,6 +131,10 @@ button img {
     border-radius: 4px;
     padding: .5rem;
 }
+.wrapper .central-section .message-box .h-text {
+    color: #f5d521;
+}
+
 /*new game settings popup*/
 .wrapper .new-game-popup {
     position: absolute;
