@@ -112,13 +112,28 @@ function whoRollFirst() {
         initScore.push(pTwoScore);
         displayPlayerTwoCurrentScore(pTwoScore);
         rollBtn.removeEventListener('click', pTwoInitRoll);
+        //player one starts game
         if(initScore[0]<initScore[1]) {
             let msg = `<span class='h-text'>${getNames.pOneName}</span> starts the game first! <span class='h-text'>${initScore[0]}</span> less than <span class='h-text'>${initScore[1]}</span>.`;
             showMessage(msg);
             activatePlayerOne();
             rollBtn.innerHTML = '<img src="img/dice-icon.svg" alt=""> Start!'
-            rollBtn.addEventListener('click', pOneRolling);
+            let pOneRoundScores = [];
+            rollBtn.addEventListener('click', ()=>{
+                
+                console.log('player one starts');
+                resetScores();
+                let curScore = generateDiceNumbers();
+                let roundScore = curScore;
+                console.log(curScore);
+                displayPlayerOneCurrentScore(curScore);
+                let msg = `Youre score is <span class='h-text'>${curScore}</span>`
+                showMessage(msg);
+                pOneRoundScores.push(curScore);
+                console.log(pOneRoundScores);
+            });
         }
+        //player two starts game
         else if(initScore[0]>initScore[1]) {
             let msg = `<span class='h-text'>${getNames.pTwoName}</span> starts the game first! <span class='h-text'>${initScore[1]}</span> less than <span class='h-text'>${initScore[0]}</span>.`;
             showMessage(msg);
@@ -139,7 +154,9 @@ function whoRollFirst() {
     
 }
 
+
 function pOneRolling() {
+    
     console.log('player one starts');
     resetScores();
     let curScore = generateDiceNumbers();
@@ -148,6 +165,9 @@ function pOneRolling() {
     displayPlayerOneCurrentScore(curScore);
     let msg = `Youre score is <span class='h-text'>${curScore}</span>`
     showMessage(msg);
+    pOneRoundScores.push(curScore);
+    console.log(pOneRoundScores);
+
 }
 
 function pTwoRolling() {
