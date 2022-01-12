@@ -53,3 +53,15 @@ console.log(`The bill was ${bill}, the tip was ${tip}, and the total value is ${
 
 
 
+let smile = "😀";
+let smile1 = String.fromCodePoint(8986);
+
+
+for(let i = 0; i<10; i++) {
+    if(i===2) {
+        continue
+    }
+    console.log(smile += "😀");
+}
+
+
