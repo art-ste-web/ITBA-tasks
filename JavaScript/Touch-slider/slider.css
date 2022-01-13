@@ -52,6 +52,16 @@ body {
     padding: .5rem 2rem;
 }
 
+/*slider navigation*/
+.slider-container .slider-viewport .slider-navigation {
+    width: 120px;
+    height: 10px;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 100%);
+}
 /*slider controls*/
 .slider-container .slider-viewport .slider-controls .left-btn {
    position: absolute;

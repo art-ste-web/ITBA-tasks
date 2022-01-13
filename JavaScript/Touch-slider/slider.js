@@ -6,7 +6,7 @@ class TouchSlider {
         this.slideLeftBtn = document.querySelector('.left-btn');
         this.slideRightBtn = document.querySelector('.right-btn');
         this.slides = document.querySelectorAll('.slide');
-        
+        this.sliderNav = document.querySelector('.slider-navigation');
     }
     sliderInit() {
         if(this.sliderSliderEl) {
@@ -15,47 +15,55 @@ class TouchSlider {
             this.setActiveSlidePos(slideWidth);
             this.slideLeftBtn.addEventListener('click', ()=>{
                 this.slideLeft(slideWidth)
+                this.trackNavigation(slideWidth)
             });
             this.slideRightBtn.addEventListener('click', ()=>{
                 this.slideRight(slideWidth)
+                this.trackNavigation(slideWidth)
             });
         }
         else {
             console.log('slider does not exist');
         }
     }
-    setActiveSlidePos(slideWidth) {
+
+    getActiveSlideIndex(){
         let activeSlideIndex;
         for(let i=0; i<this.slides.length; i++) {
             if(this.slides[i].classList.contains('active-slide')) {
-                this.slides[0].style.marginLeft = `-${slideWidth*[i]}px`;
                 activeSlideIndex = i;
-                console.log('active slide # '+activeSlideIndex);
+                // console.log('active slide # '+activeSlideIndex);
                
             }
             
         }
         if(!activeSlideIndex) {
             this.slides[0].classList.add('active-slide');
-            console.log('no active slide');
+            activeSlideIndex = 0;
+            // console.log('no active slide');
         }
         return activeSlideIndex;        
     }
+
+    setActiveSlidePos(slideWidth) {
+        let activeSlideIndex = this.getActiveSlideIndex();
+        console.log('act ind '+activeSlideIndex);
+        this.slides[0].style.marginLeft = `-${slideWidth*activeSlideIndex}px`;
+    }
+
     slideLeft(slideWidth) {
+        
         console.log('dist '+slideWidth);
         let curMarg = parseInt(window.getComputedStyle(this.slides[0], null).marginLeft);
         console.log(curMarg);
         if(curMarg === 0) {
-            this.slides[0].style.marginLeft = `-${slideWidth}px`;
-        }
-        else if( Math.abs(curMarg) >= slideWidth*(this.slides.length-1)) {
-            this.slides[0].style.marginLeft = 0;
+            this.slides[0].style.marginLeft = `-${slideWidth*(this.slides.length-1)}px`;
             console.log('end left slide');
-        } 
-        else {
-            this.slides[0].style.marginLeft = `-${Math.abs(curMarg)+slideWidth}px`;
         }
-        
+        else if(curMarg<0) {
+            this.slides[0].style.marginLeft = `${curMarg+slideWidth}px`;
+            console.log('left < 0');
+        }
     }
 
     slideRight(slideWidth) {
@@ -73,6 +81,17 @@ class TouchSlider {
             }
         }
     
+    }
+
+    trackNavigation(slideWidth) {
+        let curMarg = parseInt(window.getComputedStyle(this.slides[0], null).marginLeft);
+        console.log('nav '+curMarg);
+        let currentIndex = (Math.abs(curMarg)-slideWidth)/slideWidth;
+        if(currentIndex<0) {
+            currentIndex = this.slides.length-1;
+        }
+        
+        console.log(currentIndex);
     }
 
 }
