@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.diagram {
+    max-width: 640px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 1fr;
+    grid-gap: 20px;
+    background-color: #eee;
+    margin: 0 auto;
+    padding: 2rem;
+    
+}
+
+.diagram__chart .donut-segment {
+    opacity: 1;
+}
+
+
+
+.diagram__legend ul {
+    list-style-type: none;
+}
+
+.diagram__legend ul li {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.diagram__legend .chart-color {
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 1rem;
+    background-color: rgb(163, 159, 159);
+    margin-right: 1rem;
+}
+.diagram__legend .color-1 {
+    background-color: #0072bf;
+}
+
+.diagram__legend .color-2 {
+    background-color: #b1c94e;
+}
+
+.diagram__legend .color-3 {
+    background-color: #00b7a8;
+}
+
+.diagram__legend .segment-value {
+    font-weight: 700;
+    margin-left: .5rem;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+
+.diagram__controls > div {
+    margin-top: 1rem;
+}
+
+.diagram__controls .range-data {
+    min-width: 300px;
+}
+
+.total-value {
+    text-align: center;
+    margin-left: 3rem;
+}

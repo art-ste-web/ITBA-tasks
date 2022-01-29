@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ring diagram</title>
+    <link rel="stylesheet" href="diagram.css">
+</head>
+<body>
+    <main class="diagram">
+        <div class="diagram__chart">
+            <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
+                <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+                <circle id="segment_1" class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#0072bf" stroke-width="5" stroke-dasharray="60 40" stroke-dashoffset="0"></circle>
+                <circle id="segment_2" class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#b1c94e" stroke-width="5" stroke-dasharray="30 70" stroke-dashoffset="-60"></circle>
+                <circle id="segment_3" class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#00b7a8" stroke-width="5" stroke-dasharray="10 90" stroke-dashoffset="-90"></circle>
+              </svg>
+        </div>
+        <div class="diagram__legend">
+            <ul>
+                <li><span class="chart-color color-1"></span> Data 1<p class="segment-value"></p></li>
+                <li><span class="chart-color color-2"></span> Data 2<p class="segment-value"></p></li>
+                <li><span class="chart-color color-3"></span> Data 3<p class="segment-value"></p></li>
+            </ul>
+        </div>
+        
+    </main>
+    <section class="controls">
+        <div class="diagram__controls">
+            <div>
+                <label for="data_1">Data 1</label>
+                <input class="range-data" type="range" id="data_1" name="data_1"
+                       min="0" max="100" step="1" value="0" >
+                <span class="display-value"></span>
+            </div>
+            <div>
+                <label for="data_2">Data 2</label>
+                <input class="range-data" type="range" id="data_2" name="data_2"
+                       min="0" max="100" step="1" value="0">
+                <span class="display-value"></span>
+           </div>
+            <div>
+                <label for="data_3">Data 3</label>
+                <input class="range-data" type="range" id="data_3" name="data_3"
+                       min="0" max="100" step="1" value="0">
+                <span class="display-value"></span>
+            </div>
+            
+        </div>
+        <div class="total-num">
+            <h2 class="total-value"></h2>
+        </div>
+    </section>
+    
+
+    <script src="diagram.js"></script>
+</body>
+</html>
