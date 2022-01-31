@@ -1,3 +1,12 @@
+@keyframes diagram-animation {
+    from{opacity: 0}
+    to{opacity: 1}
+}
+@keyframes diagram-animation-2 {
+    from{stroke-dashoffset: 100%}
+    to{stroke-dashoffset: 100%}
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,10 +25,26 @@
 }
 
 .diagram__chart .donut-segment {
-    opacity: 1;
+    opacity: 0;
+    animation-fill-mode: forwards;
 }
 
+#segment_1 {
+    animation: diagram-animation .5s ease-in-out;
+    animation-delay: .5s;
+    animation-fill-mode: forwards;
+}
 
+#segment_2 {
+    animation: diagram-animation .5s ease-in-out;
+    animation-delay: .3s;
+    animation-fill-mode: forwards;
+}
+
+#segment_3 {
+    animation: diagram-animation .5s ease-in-out;
+    animation-fill-mode: forwards;
+}
 
 .diagram__legend ul {
     list-style-type: none;
@@ -76,4 +101,9 @@
 .total-value {
     text-align: center;
     margin-left: 3rem;
+}
+
+#rebuild-btn {
+    border: none;
+
 }

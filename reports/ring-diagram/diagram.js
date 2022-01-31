@@ -4,6 +4,23 @@ let charts = document.querySelectorAll('.donut-segment');
 // console.log(chartOne.setAttributeNS(null, 'stroke-dasharray', '80 20'));
 // console.log(chartOne.getAttributeNS(null, 'stroke-dasharray'));
 
+const diagramData = [
+    {
+        segmentPercent: 60,
+        segmentName: 'Sector 1',
+        segmentColor: '#0072bf'
+    },
+    {
+        segmentPercent: 30,
+        segmentName: 'Sector 2',
+        segmentColor: '#b1c94e'
+    },
+    {
+        segmentPercent: 10,
+        segmentName: 'Sector 3',
+        segmentColor: '#00b7a8'
+    },
+]
 
 let segmentsValues = document.querySelectorAll('.segment-value');
 let valuesArr = [12, 28, 60];
@@ -77,11 +94,13 @@ function updateValue() {
         valueEl[i].innerText = curValue;
         rangeDataEls[i].setAttribute('value', valuesArr[i]);
         valueEl[i].innerText = valuesArr[i];
+        let sumVal = Number(rangeDataEls[0].value) + Number(rangeDataEls[1].value) + Number(rangeDataEls[2].value);
+        totalBlock.innerText = `Total: ${sumVal}%`;
         rangeDataEls[i].addEventListener('input', ()=>{
             let curValue = rangeDataEls[i].value;
-            let sumVal = Number(rangeDataEls[0].value) + Number(rangeDataEls[1].value) + Number(rangeDataEls[2].value);
+            sumVal = Number(rangeDataEls[0].value) + Number(rangeDataEls[1].value) + Number(rangeDataEls[2].value);
             //console.log(curValue);
-            totalBlock.innerText = `${sumVal}%`;
+            totalBlock.innerText = `Total: ${sumVal}%`;
             console.log(sumVal);
             valueEl[i].innerText = curValue;
             valuesArr[i] = +curValue;
@@ -89,13 +108,13 @@ function updateValue() {
             if(sumVal>100) {
                 alert('Cумма відсотків не повинна перевищувати 100')
             }
-            initValues()
+            
             
         })
     }
 }
 
-
+document.getElementById('rebuild-btn').addEventListener('click', initValues);
 
 updateValue();
 
