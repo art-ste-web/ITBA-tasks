@@ -1,4 +1,5 @@
-
+import sliderData from "./slider-data.js";
+console.log(sliderData.imagesUrl);
 
 class TouchSlider {
     constructor() {
