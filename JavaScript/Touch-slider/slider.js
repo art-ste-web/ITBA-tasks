@@ -1,104 +1,118 @@
-import sliderData from "./slider-data.js";
-console.log(sliderData.imagesUrl);
-
-class TouchSlider {
-    constructor() {
-        this.sliderSliderEl = document.querySelector('.slider-container');
-        this.slideLeftBtn = document.querySelector('.left-btn');
-        this.slideRightBtn = document.querySelector('.right-btn');
-        this.slides = document.querySelectorAll('.slide');
-        this.sliderNav = document.querySelector('.slider-navigation');
-    }
-    sliderInit() {
-        if(this.sliderSliderEl) {
-            console.log('slider exist');
-            const slideWidth = this.slides[0].offsetWidth;
-            this.setActiveSlidePos(slideWidth);
-            this.slideLeftBtn.addEventListener('click', ()=>{
-                this.slideLeft(slideWidth)
-                this.trackNavigation(slideWidth)
-            });
-            this.slideRightBtn.addEventListener('click', ()=>{
-                this.slideRight(slideWidth)
-                this.trackNavigation(slideWidth)
-            });
-        }
-        else {
-            console.log('slider does not exist');
-        }
-    }
-
-    getActiveSlideIndex(){
-        let activeSlideIndex;
-        for(let i=0; i<this.slides.length; i++) {
-            if(this.slides[i].classList.contains('active-slide')) {
-                activeSlideIndex = i;
-                // console.log('active slide # '+activeSlideIndex);
-               
-            }
-            
-        }
-        if(!activeSlideIndex) {
-            this.slides[0].classList.add('active-slide');
-            activeSlideIndex = 0;
-            // console.log('no active slide');
-        }
-        return activeSlideIndex;        
-    }
-
-    setActiveSlidePos(slideWidth) {
-        let activeSlideIndex = this.getActiveSlideIndex();
-        console.log('act ind '+activeSlideIndex);
-        this.slides[0].style.marginLeft = `-${slideWidth*activeSlideIndex}px`;
-    }
-
-    slideLeft(slideWidth) {
-        
-        console.log('dist '+slideWidth);
-        let curMarg = parseInt(window.getComputedStyle(this.slides[0], null).marginLeft);
-        console.log(curMarg);
-        if(curMarg === 0) {
-            this.slides[0].style.marginLeft = `-${slideWidth*(this.slides.length-1)}px`;
-            console.log('end left slide');
-        }
-        else if(curMarg<0) {
-            this.slides[0].style.marginLeft = `${curMarg+slideWidth}px`;
-            console.log('left < 0');
-        }
-    }
-
-    slideRight(slideWidth) {
-        console.log('dist '+slideWidth);
-        let curMarg = parseInt(window.getComputedStyle(this.slides[0], null).marginLeft);
-        console.log(curMarg);
-        if(curMarg === 0) {
-            this.slides[0].style.marginLeft = `-${slideWidth}px`;
-        }
-        else {
-            this.slides[0].style.marginLeft = `-${Math.abs(curMarg)+slideWidth}px`;
-            if( Math.abs(curMarg) === slideWidth*(this.slides.length-1) || Math.abs(curMarg) > slideWidth*(this.slides.length-1)) {
-                this.slides[0].style.marginLeft = 0;
-                console.log('end right slide');
-            }
-        }
-    
-    }
-
-    trackNavigation(slideWidth) {
-        let curMarg = parseInt(window.getComputedStyle(this.slides[0], null).marginLeft);
-        console.log('nav '+curMarg);
-        let currentIndex = (Math.abs(curMarg)-slideWidth)/slideWidth;
-        if(currentIndex<0) {
-            currentIndex = this.slides.length-1;
-        }
-        
-        console.log(currentIndex);
-    }
+const sliderData = {
+    sliderContainer: 'slider-container',
+    images: [
+        {
+            url:'./img/img-1.jpg',
+            title: 'Image 1'
+        },
+        {
+            url:'./img/img-2.jpg',
+            title: 'Image 2'
+        },
+        {
+            url:'./img/img-3.jpg',
+            title: 'Image 3'
+        },
+    ],
+    activeSlide: 0,
+    title: true,
+    indicator: false,
+    autoplay: false
 
 }
 
+class TouchSlider {
+    constructor(sliderData) {
+        this.sliderData = sliderData;
+        this.slideLeftBtn = document.querySelector('.left-btn');
+        this.slideRightBtn = document.querySelector('.right-btn');
+        this.sliderFeed = document.querySelectorAll('.slider-feed');
+        this.sliderNav = document.querySelector('.slider-navigation');
+    }
 
-let mySlider = new TouchSlider;
+    sliderInit() {
+        this.createSliderFeed();
+        this.createSliderControls();
+        this.resizeSlide();
+        this.setActiveSlide();
+        let slideCount = sliderData.activeSlide;
+        const slideWidth = document.getElementById('slider-container').offsetWidth;
+        const sliderFeed = document.querySelector('.slider-feed');
+        const slideLeftBtn = document.querySelector('.left-btn');
+        slideLeftBtn.addEventListener('click', ()=>{
+            slideCount++;
+            sliderFeed.style.transform = `translateX(-${slideCount*slideWidth}px)`;
+            console.log('slide left');
+            console.log(slideCount);
+        })
+
+
+    };
+
+    resizeSlide() {
+        let slideWidth = document.getElementById('slider-container').offsetWidth;
+        const sliderFeed = document.querySelector('.slider-feed');
+        const sliderImages = document.querySelectorAll('.slider-feed img');
+        sliderFeed.style.width = slideWidth * sliderImages.length + 'px';
+        sliderImages.forEach (img => {
+            img.style.width = slideWidth + 'px';
+            img.style.height = 'auto';
+        })
+        
+    }
+
+    setActiveSlide() {
+        const slideWidth = document.getElementById('slider-container').offsetWidth;
+        const sliderFeed = document.querySelector('.slider-feed');
+        sliderFeed.style.transform = `translateX(-${this.sliderData.activeSlide*slideWidth}px)`;
+    }
+
+    createSliderFeed() {
+        const slider = document.getElementById(this.sliderData.sliderContainer);
+        const sliderFeed = document.createElement('div');
+        sliderFeed.classList.add('slider-feed');
+        slider.append(sliderFeed);
+        const sliderFeedEl = document.querySelector('.slider-feed');
+        this.sliderData.images.forEach(el => {
+            const image = document.createElement('img');
+            image.setAttribute('src', el.url);
+            image.setAttribute('alt', '');
+            sliderFeedEl.append(image);
+        });
+        
+    }
+    createSliderControls() {
+        const slider = document.getElementById(this.sliderData.sliderContainer);
+        const sliderControls = document.createElement('div');
+        sliderControls.classList.add('slider-controls');
+        slider.append(sliderControls);
+        const sliderControlsEl = document.querySelector('.slider-controls');
+
+        //left button
+        const leftBtn = document.createElement('span');
+        leftBtn.classList.add('left-btn');
+        sliderControlsEl.append(leftBtn);
+        const leftBtnEl = document.querySelector('.left-btn');
+        const leftBtnIcon = document.createElement('i');
+        leftBtnIcon.setAttribute('data-feather', "chevron-left");
+        leftBtnEl.append(leftBtnIcon);
+
+        //right button
+        const rightBtn = document.createElement('span');
+        rightBtn.classList.add('right-btn');
+        sliderControlsEl.append(rightBtn);
+        const rightBtnEl = document.querySelector('.right-btn');
+        const rightBtnIcon = document.createElement('i');
+        rightBtnIcon.setAttribute('data-feather', "chevron-right");
+        rightBtnEl.append(rightBtnIcon);
+        
+    }
+    
+    
+}
+
+let mySlider = new TouchSlider(sliderData);
 mySlider.sliderInit();
+window.addEventListener('resize', mySlider.resizeSlide);
 
 

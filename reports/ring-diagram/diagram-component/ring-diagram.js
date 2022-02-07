@@ -17,5 +17,5 @@ const diagramData = [
 ]
 
 function createSegment(segmentData) {
-    
+    const segment = document.create
 }

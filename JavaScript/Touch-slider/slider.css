@@ -3,33 +3,25 @@ body {
     margin: 0;
     padding: 0;
 }
-.slider-container {
-    padding: 1rem;
+#slider-container {
     
-}
-.slider-container .slider-viewport {
-    display: flex;
-    width: 60%;
-    margin: 0 auto;
+    max-width: 60%;
+    margin: 2rem auto;
+    border: 2px solid #000;
     overflow: hidden;
-    user-select: none;
+    transition: all 1s ease;
     position: relative;
 }
-.slider-container .slider-viewport .slide {
-    width: 100%;
-    height: auto;
+
+.slider-feed {
     display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: all 0.25s ease-out;
-    max-height: 800px;
-    
+    transition: all 1s ease;
 }
-.slider-container .slider-viewport .slide img {
-    
-    object-fit: contain; 
-    height: 100%;
-}
+
+
+
+
+
 
 /*slider titles*/
 .slider-container .slider-viewport .slide .inside-title {
@@ -63,22 +55,26 @@ body {
     background: radial-gradient(circle, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 100%);
 }
 /*slider controls*/
-.slider-container .slider-viewport .slider-controls .left-btn {
+
+#slider-container .slider-controls .left-btn {
+   
    position: absolute;
    left: 1rem;
    top: 50%;
    transform: translateY(-50%);
-   color: #fff;
+   color: #ffffff;
+   cursor: pointer;
 }
-.slider-container .slider-viewport .slider-controls .right-btn {
+#slider-container .slider-controls .right-btn {
     position: absolute;
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
     color: #fff;
+    cursor: pointer;
  }
-.slider-container .slider-viewport .slider-controls .left-btn svg,
-.slider-container .slider-viewport .slider-controls .right-btn svg {
+#slider-container .slider-controls .left-btn svg,
+#slider-container .slider-controls .right-btn svg {
     color: #cfcfcf;
     width: 3rem;
     height: 3rem;
