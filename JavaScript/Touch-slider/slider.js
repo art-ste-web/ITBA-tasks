@@ -1,6 +1,5 @@
 const sliderData = {
-    sliderContainer: 'slider-container',
-    images: [
+        images: [
         {
             url:'./img/img-1.jpg',
             title: 'Image 1'
@@ -13,10 +12,14 @@ const sliderData = {
             url:'./img/img-3.jpg',
             title: 'Image 3'
         },
+        {
+            url:'./img/img-4.jpg',
+            title: 'Image 4'
+        },
     ],
     activeSlide: 0,
-    title: true,
-    indicator: false,
+    isTitle: true,
+    isIndicator: false,
     autoplay: false
 
 }
@@ -24,30 +27,54 @@ const sliderData = {
 class TouchSlider {
     constructor(sliderData) {
         this.sliderData = sliderData;
-        this.slideLeftBtn = document.querySelector('.left-btn');
-        this.slideRightBtn = document.querySelector('.right-btn');
-        this.sliderFeed = document.querySelectorAll('.slider-feed');
-        this.sliderNav = document.querySelector('.slider-navigation');
+        this.sliderImages = sliderData.images;
+        this.sliderContainer = document.getElementById('slider-container');
     }
 
     sliderInit() {
-        this.createSliderFeed();
-        this.createSliderControls();
+        //create slider feed and controls
+        const sliderFeedEl = document.querySelector('.slider-feed');
+        const sliderControlsEl = document.querySelector('.slider-feed');
+        if(!sliderFeedEl && !sliderControlsEl) {
+            this.createSliderFeed();
+            this.createSliderControls();
+        }
         this.resizeSlide();
         this.setActiveSlide();
+        //slide count
         let slideCount = sliderData.activeSlide;
-        const slideWidth = document.getElementById('slider-container').offsetWidth;
+        const slideWidth = this.sliderContainer.offsetWidth;
         const sliderFeed = document.querySelector('.slider-feed');
         const slideLeftBtn = document.querySelector('.left-btn');
+        const slideRightBtn = document.querySelector('.right-btn');
+        //slide left
         slideLeftBtn.addEventListener('click', ()=>{
             slideCount++;
-            sliderFeed.style.transform = `translateX(-${slideCount*slideWidth}px)`;
+            if(slideCount >= this.sliderImages.length) {
+                slideCount = 0;
+            }
+            this.rollSlide(slideCount, slideWidth);
             console.log('slide left');
             console.log(slideCount);
         })
-
+        //slide right
+        slideRightBtn.addEventListener('click', ()=>{
+            slideCount--;
+            if(slideCount < 0 ) {
+                slideCount = this.sliderImages.length - 1;
+            }
+            this.rollSlide(slideCount, slideWidth);
+            console.log('slide right');
+            console.log(slideCount);
+        })
+        sliderFeed.style.transform = `translateX(-${slideCount*slideWidth}px)`;
 
     };
+    
+    rollSlide(count, slideWidth) {
+        const sliderFeed = document.querySelector('.slider-feed');
+        sliderFeed.style.transform = `translateX(-${count*slideWidth}px)`;
+    }
 
     resizeSlide() {
         let slideWidth = document.getElementById('slider-container').offsetWidth;
@@ -59,33 +86,41 @@ class TouchSlider {
             img.style.height = 'auto';
         })
         
+        
     }
 
     setActiveSlide() {
-        const slideWidth = document.getElementById('slider-container').offsetWidth;
+        const slideWidth = this.sliderContainer.offsetWidth;
         const sliderFeed = document.querySelector('.slider-feed');
         sliderFeed.style.transform = `translateX(-${this.sliderData.activeSlide*slideWidth}px)`;
     }
 
     createSliderFeed() {
-        const slider = document.getElementById(this.sliderData.sliderContainer);
         const sliderFeed = document.createElement('div');
         sliderFeed.classList.add('slider-feed');
-        slider.append(sliderFeed);
+        this.sliderContainer.append(sliderFeed);
         const sliderFeedEl = document.querySelector('.slider-feed');
         this.sliderData.images.forEach(el => {
+            const imageWrapper = document.createElement('div');
+            imageWrapper.classList.add('img-wrapper');
+            sliderFeedEl.append(imageWrapper);
             const image = document.createElement('img');
             image.setAttribute('src', el.url);
             image.setAttribute('alt', '');
-            sliderFeedEl.append(image);
+            imageWrapper.append(image);
+            if(this.sliderData.isTitle) {
+                const slideTitle = document.createElement('p');
+                slideTitle.classList.add('slide-title');
+                slideTitle.textContent = el.title;
+                imageWrapper.append(slideTitle);
+            }
         });
         
     }
     createSliderControls() {
-        const slider = document.getElementById(this.sliderData.sliderContainer);
         const sliderControls = document.createElement('div');
         sliderControls.classList.add('slider-controls');
-        slider.append(sliderControls);
+        this.sliderContainer.append(sliderControls);
         const sliderControlsEl = document.querySelector('.slider-controls');
 
         //left button
@@ -113,6 +148,6 @@ class TouchSlider {
 
 let mySlider = new TouchSlider(sliderData);
 mySlider.sliderInit();
-window.addEventListener('resize', mySlider.resizeSlide);
+window.addEventListener('resize', mySlider.sliderInit.bind(mySlider));
 
 
