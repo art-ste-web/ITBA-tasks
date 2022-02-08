@@ -72,7 +72,10 @@ class SwipeSlider {
         })
         
         console.log('slider init');
-        this.handleSlideSwipe(slideCount, slideWidth);
+        if(this.sliderData.isSwipe) {
+            this.handleSlideSwipe(slideCount, slideWidth);
+        }
+        
     };
     
     handleSlideSwipe(count, slideWidth) {
@@ -84,7 +87,7 @@ class SwipeSlider {
             x1 = firstTouch.clientX;
             y1 = firstTouch.clientY;
             //console.log(x1, y1);
-        })
+        }, false);
         sliderTape.addEventListener('touchmove', (e)=>{
             if(!x1 || !y1) {
                 return false;
@@ -95,6 +98,7 @@ class SwipeSlider {
             //console.log(x2, y2);
             let xDif = x2 - x1;
             let yDif = y2 - y1;
+            console.log(xDif, yDif);
             if(Math.abs(xDif) > Math.abs(yDif)) {
                 if(xDif > 0) {
                     count--;
@@ -123,7 +127,7 @@ class SwipeSlider {
             }
             x1 = null;
             y1 = null;
-        })
+        }, false);
     }
 
     rollSlide(count, slideWidth) {
