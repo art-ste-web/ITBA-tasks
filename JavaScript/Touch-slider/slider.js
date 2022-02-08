@@ -86,6 +86,9 @@ class SwipeSlider {
             //console.log(x1, y1);
         })
         sliderTape.addEventListener('touchmove', (e)=>{
+            if(!x1 || !y1) {
+                return false;
+            }
             const firstTouchEnd = e.touches[0];
             let x2 = firstTouchEnd.clientX;
             let y2 = firstTouchEnd.clientY;
@@ -118,6 +121,8 @@ class SwipeSlider {
                     console.log('top');
                 }
             }
+            x1 = null;
+            y1 = null;
         })
     }
 
