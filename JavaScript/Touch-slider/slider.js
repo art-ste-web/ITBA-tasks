@@ -19,12 +19,13 @@ const sliderData = {
     ],
     activeSlide: 0,
     isTitle: true,
+    isSwipe: true,
     isIndicator: false,
     autoplay: false
 
 }
 
-class TouchSlider {
+class SwipeSlider {
     constructor(sliderData) {
         this.sliderData = sliderData;
         this.sliderImages = sliderData.images;
@@ -33,10 +34,10 @@ class TouchSlider {
 
     sliderInit() {
         //create slider feed and controls
-        const sliderFeedEl = document.querySelector('.slider-feed');
-        const sliderControlsEl = document.querySelector('.slider-feed');
-        if(!sliderFeedEl && !sliderControlsEl) {
-            this.createSliderFeed();
+        const sliderTapeEl = document.querySelector('.slider-tape');
+        const sliderControlsEl = document.querySelector('.slider-controls');
+        if(!sliderTapeEl && !sliderControlsEl) {
+            this.createSliderTape();
             this.createSliderControls();
         }
         this.resizeSlide();
@@ -44,7 +45,9 @@ class TouchSlider {
         //slide count
         let slideCount = sliderData.activeSlide;
         const slideWidth = this.sliderContainer.offsetWidth;
-        const sliderFeed = document.querySelector('.slider-feed');
+        const sliderTape = document.querySelector('.slider-tape');
+        sliderTape.style.transform = `translateX(-${slideCount*slideWidth}px)`;
+        //slide events
         const slideLeftBtn = document.querySelector('.left-btn');
         const slideRightBtn = document.querySelector('.right-btn');
         //slide left
@@ -67,20 +70,67 @@ class TouchSlider {
             console.log('slide right');
             console.log(slideCount);
         })
-        sliderFeed.style.transform = `translateX(-${slideCount*slideWidth}px)`;
-
+        
+        console.log('slider init');
+        this.handleSlideSwipe(slideCount, slideWidth);
     };
     
+    handleSlideSwipe(count, slideWidth) {
+        const sliderTape = document.querySelector('.slider-tape');
+        let x1 = null;
+        let y1 = null;
+        sliderTape.addEventListener('touchstart', (e)=>{
+            const firstTouch = e.touches[0];
+            x1 = firstTouch.clientX;
+            y1 = firstTouch.clientY;
+            //console.log(x1, y1);
+        })
+        sliderTape.addEventListener('touchmove', (e)=>{
+            const firstTouchEnd = e.touches[0];
+            let x2 = firstTouchEnd.clientX;
+            let y2 = firstTouchEnd.clientY;
+            //console.log(x2, y2);
+            let xDif = x2 - x1;
+            let yDif = y2 - y1;
+            if(Math.abs(xDif) > Math.abs(yDif)) {
+                if(xDif > 0) {
+                    count--;
+                    if(count < 0 ) {
+                        count = this.sliderImages.length - 1;
+                    }
+                    this.rollSlide(count, slideWidth);
+                    console.log('right');
+                }
+                else {
+                    count++;
+                    if(count >= this.sliderImages.length) {
+                        count = 0;
+                    }
+                    this.rollSlide(count, slideWidth);
+                    console.log('left');
+                }
+            }
+            else {
+                if(yDif > 0) {
+                    console.log('down');
+                }
+                else {
+                    console.log('top');
+                }
+            }
+        })
+    }
+
     rollSlide(count, slideWidth) {
-        const sliderFeed = document.querySelector('.slider-feed');
-        sliderFeed.style.transform = `translateX(-${count*slideWidth}px)`;
+        const sliderTape = document.querySelector('.slider-tape');
+        sliderTape.style.transform = `translateX(-${count*slideWidth}px)`;
     }
 
     resizeSlide() {
         let slideWidth = document.getElementById('slider-container').offsetWidth;
-        const sliderFeed = document.querySelector('.slider-feed');
-        const sliderImages = document.querySelectorAll('.slider-feed img');
-        sliderFeed.style.width = slideWidth * sliderImages.length + 'px';
+        const sliderTape = document.querySelector('.slider-tape');
+        const sliderImages = document.querySelectorAll('.slider-tape img');
+        sliderTape.style.width = slideWidth * sliderImages.length + 'px';
         sliderImages.forEach (img => {
             img.style.width = slideWidth + 'px';
             img.style.height = 'auto';
@@ -91,19 +141,19 @@ class TouchSlider {
 
     setActiveSlide() {
         const slideWidth = this.sliderContainer.offsetWidth;
-        const sliderFeed = document.querySelector('.slider-feed');
-        sliderFeed.style.transform = `translateX(-${this.sliderData.activeSlide*slideWidth}px)`;
+        const sliderTape = document.querySelector('.slider-tape');
+        sliderTape.style.transform = `translateX(-${this.sliderData.activeSlide*slideWidth}px)`;
     }
 
-    createSliderFeed() {
-        const sliderFeed = document.createElement('div');
-        sliderFeed.classList.add('slider-feed');
-        this.sliderContainer.append(sliderFeed);
-        const sliderFeedEl = document.querySelector('.slider-feed');
+    createSliderTape() {
+        const sliderTape = document.createElement('div');
+        sliderTape.classList.add('slider-tape');
+        this.sliderContainer.append(sliderTape);
+        const sliderTapeEl = document.querySelector('.slider-tape');
         this.sliderData.images.forEach(el => {
             const imageWrapper = document.createElement('div');
             imageWrapper.classList.add('img-wrapper');
-            sliderFeedEl.append(imageWrapper);
+            sliderTapeEl.append(imageWrapper);
             const image = document.createElement('img');
             image.setAttribute('src', el.url);
             image.setAttribute('alt', '');
@@ -146,7 +196,7 @@ class TouchSlider {
     
 }
 
-let mySlider = new TouchSlider(sliderData);
+let mySlider = new SwipeSlider(sliderData);
 mySlider.sliderInit();
 window.addEventListener('resize', mySlider.sliderInit.bind(mySlider));
 
