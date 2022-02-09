@@ -1,0 +1,60 @@
+ h3 {
+   font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+  }
+  .container {
+    font-family: sans-serif;
+    width: 640px;
+    margin: 1rem auto;
+  }
+  .container .touch-data {
+    padding: 1rem 2rem;
+  }
+  .touch-pad {
+    position: relative;
+    height: 320px;
+    background-color: #ccc;
+    
+    border-radius: 8px;
+  }
+  .touch-pad .direction {
+    font-size: 1.5rem;
+  }
+  .touch-pad .up {
+      position: absolute;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: all 1s ease;
+  }
+  .touch-pad .right {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 1s ease;
+}
+.touch-pad .down {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: all 1s ease;
+}
+.touch-pad .left {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 1s ease;
+}
+  .touch-data > p > span {
+    color: red;
+  }
+  

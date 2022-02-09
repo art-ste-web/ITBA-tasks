@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swipe detect</title>
+    <link rel="stylesheet" href="swipe-test.css">
+</head>
+<body>
+    <div class = "container">
+        <div class = "touch-pad">
+            <span class="direction up">Up</span>
+            <span class="direction right">Right</span>
+            <span class="direction down">Down</span>
+            <span class="direction left">Left</span>
+        </div>
+        <div class = "touch-data">
+          <h3>Координати "touchstart" (початкова точка свайпу):</h3>
+          <p>x1: <span class = "t-start-x">0</span> | y1: <span class = "t-start-y">0</span></p>
+          <h3>Координати "touchmove" (кінцева точка свайпу):</h3>
+          <p>x2: <span class = "t-end-x">0</span> | y2: <span class = "t-end-y">0</span></p>
+          <h3>Різниця координат (визначаємо по якій осі був свайп):</h3>
+          <p>x2 - x1 = <span class = "x-dif">0</span> (горизонтальная вісь) <br> y2 - y1 = <span class = "y-dif">0</span> (вертикальная вісь)</p>
+          <h3>Напрямок:</h3>
+          <p><span class = "dir-txt">0</span></h4>
+        </div>
+      </div>
+      
+    <script src="swipe-test.js"></script>
+</body>
+</html>
