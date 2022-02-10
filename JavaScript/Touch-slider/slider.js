@@ -17,7 +17,7 @@ const sliderData = {
             title: 'Image 4'
         },
     ],
-    activeSlide: 0,
+    activeSlide: 2,
     isTitle: true,
     isSwipe: true,
     isIndicator: false,

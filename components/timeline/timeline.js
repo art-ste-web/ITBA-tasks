@@ -10,8 +10,11 @@ function getSegmentLength() {
     return segmentsLength;
 }
 const segLength = getSegmentLength();
+console.log(segLength);
+
+
 const dayEl = document.createElement('div');
 dayEl.classList.add('timeline-day');
 
-console.log(segLength);
+
 //for(let i = 0; i<timeLineSegmentsp[0].length)
