@@ -1,0 +1,90 @@
+
+:root {
+    --timeline-bg-color: #E5E5E5;
+    --unactive-text: #A1A1A1;
+    --accent-color: #C3000C;
+}
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-container {
+    max-width: 1140px;
+    margin: 5rem auto;
+    overflow: hidden;
+}
+.timeline-wrapper{
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+}
+.timeline {
+    display: flex;
+    transform: translateX(-20%);
+    font-family: 'Open Sans Condensed', sans-serif;
+    position: relative;
+    transition: all .5s ease;
+}
+
+
+.timeline__segment {
+    display: flex;
+    color: var(--unactive-text);
+    position: relative;
+    background-color: var(--timeline-bg-color);
+}
+
+.timeline__day {
+    text-align: center;
+    padding: .5rem 0;
+    width: 2rem;
+    background-color: var(--timeline-bg-color);
+}
+
+.timeline__segment-divider {
+    width: 3px;
+    height: 5rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: var(--unactive-text);
+}
+
+.timeline__segment-label--start {
+    position: absolute;
+    top: -120%;
+    left: 2rem;
+    font-size: 1.4rem;
+    color: var(--accent-color);
+}
+
+.timeline__segment-label--end {
+    position: absolute;
+    top: -120%;
+    right: 2rem;
+    font-size: 1.4rem;
+    color: var(--accent-color);
+}
+
+.timeline__controls .left-btn {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: linear-gradient(90deg, #FFFFFF 29.69%, rgba(255, 255, 255, 0) 100%);
+    padding: 2rem 6rem 2rem 1rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.timeline__controls .right-btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background: linear-gradient(-90deg, #FFFFFF 29.69%, rgba(255, 255, 255, 0) 100%);
+    padding: 2rem 1rem 2rem 6rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

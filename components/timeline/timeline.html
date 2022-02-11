@@ -6,19 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timeline</title>
     <link rel="stylesheet" href="timeline.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <section class="timeline">
-            <div class="timeline__segment" data-t-line-days-count = "7"></div>
-            <div class="timeline__segment" data-t-line-days-count = "31"></div>
-            <div class="timeline__segment" data-t-line-days-count = "28"></div>
-            <div class="timeline__segment" data-t-line-days-count = "7"></div>
+    <main class="main-container">
+        <section class="timeline-wrapper">
+            <div class="timeline">
+                <div class="timeline__segment" data-t-line-days-count = "31" data-t-line-label="">
+                    <div class="timeline__segment-divider"></div>
+                    <div class="timeline__segment-label--end">Грудень 2014</div>
+                </div>
+                <div id="january" class="timeline__segment" data-t-line-days-count = "31" data-t-line-label="Січень 2015">
+                    <div class="timeline__segment-divider"></div>
+                    <div class="timeline__segment-label--start">Січень 2015</div>
+                    <div class="timeline__segment-label--end">Січень 2015</div>
+                </div>
+                <div id="february" class="timeline__segment" data-t-line-days-count = "28" data-t-line-label="Лютий 2015">
+                    <div class="timeline__segment-divider"></div>
+                    <div class="timeline__segment-label--start">Лютий 2015</div>
+                    <div class="timeline__segment-label--end">Лютий 2015</div>
+                </div>
+                <div class="timeline__segment" data-t-line-days-count = "31" data-t-line-label="">
+                    <div class="timeline__segment-divider"></div>
+                    <div class="timeline__segment-label--start">Березень 2015</div>
+                </div>
+            </div>
+            <div class="timeline__controls">
+                <div class="left-btn"><img src="./img/chevron.svg" alt=""></div>
+                <div class="right-btn"><img src="./img/chevron-r.svg" alt=""></div>
+            </div>
         </section>
-        <div class="timeline-controls">
-            <div class="left-btn"></div>
-            <div class="right-btn"></div>
-        </div>
+        
+        
     </main>
     <script src="timeline.js"></script>
 </body>
