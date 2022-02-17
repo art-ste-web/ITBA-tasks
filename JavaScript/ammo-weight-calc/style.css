@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image: url('img/pix.png');
+    background-size: 600px;
+    box-shadow: inset 3000px 3000px rgba(0, 0, 0, .5);
+    height: 100vh;
+    color: #464e32;
+}
+main {
+    max-width: 480px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.calc-container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    padding-bottom: 3rem;
+    background-color: #fff;
+}
+.calc-container > h1 {
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.calc-container > label {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.calc-container > select,
+.calc-container > input {
+    font-size: 1.2rem;
+    padding: .5rem;
+}
+
+.calc-container > select > option {
+    padding: .25rem;
+}
+
+.calc-container .result {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.calc-container .result > span {
+    font-weight: 700;
+}
+.ammo-img {
+    max-width: 80%;
+    margin: 0 auto;
+}

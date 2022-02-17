@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор маси БК</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        
+        <section class="calc-container">
+            <h1>Калькулятор маси БК</h1>
+            <img class="ammo-img" src="img/ammo.jpg" alt="">
+            <label for="ammo_type">Тип боєприпасів:</label>
+            <select id="ammo_type">
+                <option value disabled>Набої стрілкової зброї:</option>
+                <option value disabled>—————————————</option>
+                <option value="11.2">5.45x39 ПС</option>
+                <option value="16.3">7.62x39 ПС</option>
+                <option value="21.8">7.62х54 ЛПС</option>
+                <option value="12.31">5.56×45 NATO</option>
+            </select>
+            <label for="ammo_numb">Кількість боєприпасів:</label>
+            <input id="ammo_numb" type="number" value="30">
+            <label>Результат:</label>
+            <div class="result">
+                Маса одного набою: <span class="one-ammo-mass">-</span><br>
+                Загальна маса комплекту: <span class="total-ammo-mass">-</span>
+            </div>
+        </section>
+        
+
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
