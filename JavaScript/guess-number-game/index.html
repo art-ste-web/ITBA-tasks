@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Number Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-container">
+        <section class="app-form">
+            <h1>Вгадай число</h1>
+            <div class="initial-settings">
+                <p>Виберіть діапазон, в якому потрібно буде відгадати число:</p>
+                <div>
+                    <label for="start_numb">Від:</label>
+                    <input id="start_numb" type="number" value="0">
+                    <label for="end_numb">До:</label>
+                    <input id="end_numb" type="number" value="10">
+                </div>
+                <label for="attempts">Виберіть кількість спроб:</label>
+                <input id="attempts" type="number" value="5">
+                <button id="start-game">Почати гру</button>
+            </div>
+            <div class="guess-block">
+                <label for="enter_numb">Введіть число:</label>
+                <input id="enter_numb" type="number">
+                <div>
+                    <button id="check_numb">Перевірити!</button>
+                    <button id="new_game">Нова гра</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
