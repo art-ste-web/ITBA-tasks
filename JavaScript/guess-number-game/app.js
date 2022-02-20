@@ -14,25 +14,42 @@ function gameStart() {
         showGameBlock();
     });
     let count = 0;
+    let prevNum = [];
     const checkNumBtn = document.getElementById('check_numb_btn');
     checkNumBtn.addEventListener('click', ()=>{
         
-        checkUserNumber(count);
+        const userNumbInput = document.getElementById('enter_numb');
+        if(!userNumbInput.value) {
+            showGameMessage('Ви не ввели число! Введіть число.')
+            return
+        }
+        for(let i=0; i<prevNum.length; i++) {
+            if(prevNum[i]===+userNumbInput.value){
+                showGameMessage('Це число вже було...');
+                return
+            }
+        }
+        count++;
+        checkUserNumber(count, prevNum);
+        console.log(prevNum);
     })
 }
 
-function checkUserNumber(count) {
+function checkUserNumber(count, prevNum) {
     
     const userNumbInput = document.getElementById('enter_numb');
-    if(!userNumbInput.value) {
-        showGameMessage('Ви не ввели число! Введіть число.')
-    }
+    // if(!userNumbInput.value) {
+    //     showGameMessage('Ви не ввели число! Введіть число.')
+    // }
+    prevNum.push(+userNumbInput.value);
     console.log(userNumbInput.value);
     const settings = getInitialSettings();
-    count++;
+    
+    
     console.log(count, +settings.attemptsNumb);
     if(count === +settings.attemptsNumb) {
-        showGameMessage('Нажаль Ви програли...')
+        showGameMessage('Нажаль Ви програли...');
+        count = 0;
     }
     
 }
