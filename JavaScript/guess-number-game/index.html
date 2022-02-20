@@ -10,8 +10,8 @@
 <body>
     <main class="app-container">
         <section class="app-form">
-            <h1>Вгадай число</h1>
-            <div class="initial-settings">
+            <h1 class="app-form__header">Гра "Вгадай число"</h1>
+            <div class="app-form__initial-settings">
                 <p>Виберіть діапазон, в якому потрібно буде відгадати число:</p>
                 <div>
                     <label for="start_numb">Від:</label>
@@ -19,18 +19,26 @@
                     <label for="end_numb">До:</label>
                     <input id="end_numb" type="number" value="10">
                 </div>
-                <label for="attempts">Виберіть кількість спроб:</label>
-                <input id="attempts" type="number" value="5">
-                <button id="start-game">Почати гру</button>
-            </div>
-            <div class="guess-block">
-                <label for="enter_numb">Введіть число:</label>
-                <input id="enter_numb" type="number">
                 <div>
-                    <button id="check_numb">Перевірити!</button>
-                    <button id="new_game">Нова гра</button>
+                    <label for="attempts">Виберіть кількість спроб:</label>
+                    <input id="attempts" type="number" value="5">
+                </div>
+                <div>
+                    <button id="start_game_btn">Почати гру</button>
                 </div>
             </div>
+            <div class="app-form__guess-number-block">
+                <div class="app-form__guess-number-input">
+                    <label for="enter_numb">Введіть число:</label>
+                    <input id="enter_numb" type="number">
+                </div>
+                <div>
+                    <button id="check_numb_btn">Перевірити!</button>
+                    <button id="new_game_btn">Нова гра</button>
+                </div>
+                <p class="app-form__game-message">Вітаємо у грі!</p>
+            </div>
+            
         </section>
     </main>
     <script src="app.js"></script>
