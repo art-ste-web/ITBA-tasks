@@ -96,3 +96,9 @@ body {
     background-color: #dba1008e;
     border-radius: 8px;
 }
+@media screen and (max-width: 900px) {
+    .app-form__initial-settings {
+        height: auto;
+        
+    }
+}
