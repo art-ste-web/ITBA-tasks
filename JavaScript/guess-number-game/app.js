@@ -1,4 +1,10 @@
-
+const restartBtn = document.getElementById('new_game_btn');
+restartBtn.addEventListener('click', ()=>{
+    const result = confirm('Почати гру заново?');
+    if (result) {
+        window.location.reload();
+    }
+})
 
 
 function generateRandomNumber(startNum, endNum) {
@@ -10,6 +16,9 @@ function generateRandomNumber(startNum, endNum) {
 function gameStart() {
     let randomNumber = null;
     let settings = null;
+    const minNumIput = document.getElementById('start_numb');
+    minNumIput.addEventListener('input', checkMaxRange);
+
     const startBtn = document.getElementById('start_game_btn');
     //confirm setting and start game
     startBtn.addEventListener('click', ()=>{
@@ -20,56 +29,70 @@ function gameStart() {
         const endNum = +settings.endNumb;
         randomNumber = generateRandomNumber(startNum, endNum);
         console.log(randomNumber);
-        showGameMessage(`Введіть число в діапазоні від ${startNum} до ${endNum}`);
+        showGameMessage(`Введіть число в діапазоні від <b>${startNum}</b> до <b>${endNum}</b>`);
     });
     
-    let count = 0;
+    
     let checkedNums = [];
-
+    let count = 0;
     //check user number
     const checkNumBtn = document.getElementById('check_numb_btn');
     checkNumBtn.addEventListener('click', ()=>{
+        
         const userNumbInput = document.getElementById('enter_numb');
         const userNumb = +userNumbInput.value;
-        checkUserNumber(count, userNumb, checkedNums, randomNumber, settings);
-    })
-}
-
-function checkUserNumber(count, userNumb, checkedNums, randomNumber, settings) {
-    
-    if(!userNumb) {
-        showGameMessage('Ви не ввели число! Введіть число.');
-        return
-    }
-    for(let i=0; i<checkedNums.length; i++) {
-        if(checkedNums[i]===userNumb){
-            showGameMessage('Це число вже було, введіть інше');
+        if(!userNumb) {
+            showGameMessage('Ви не ввели число! Введіть число.');
             return
         }
-    }
-    if(userNumb > randomNumber) {
-        showGameMessage(`Загадане число менше ${userNumb}`);
-        showNumbersList(`${String(checkedNums)} Кількість спроб: ${settings.attemptsNumb - count}`);
-    } else if(userNumb < randomNumber) {
-        showGameMessage(`Загадане число більше ${userNumb}`);
-        showNumbersList(`${String(checkedNums)} Кількість спроб: ${settings.attemptsNumb - count}`);
-    } else if(userNumb === randomNumber) {
-        showGameMessage(`Вітаємо! Ви вгадали число ${randomNumber}. Натисніть "Нова гра", щоб зіграти ще`);
-        showNumbersList(`${String(checkedNums)} Кількість спроб: ${settings.attemptsNumb - count}`);
-        return
-    } else if(count === +settings.attemptsNumb) {
-        showGameMessage('Нажаль Ви програли...');
-        count = 1;
-        return
-    }
-    
-    count++;
-    checkedNums.push(userNumb);
-    
-    console.log(checkedNums);
-    
+        if(userNumb < +settings.startNumb || userNumb > +settings.endNumb) {
+            showGameMessage(`Введіть число в діапазоні від <b>${settings.startNumb}</b> до <b>${settings.endNumb}</b>`);
+            return
+        }
+        for(let i=0; i<checkedNums.length; i++) {
+            if(checkedNums[i]===userNumb){
+                showGameMessage('Це число вже було, введіть інше');
+                return
+            }
+        }
+        if(userNumb > randomNumber) {
+            count++;
+            checkedNums.push(userNumb);
+            showGameMessage(`Загадане число менше <b>${userNumb}</b>`);
+            showNumbersList(`${String(checkedNums)}    <br>Залишилось спроб: <b>${settings.attemptsNumb - count}</b>`);
+            
+            console.log('count: '+count);
+            if(count === +settings.attemptsNumb) {
+                showGameMessage('Нажаль <b>Ви програли...</b> Натисніть "Нова гра", щоб зіграти ще');
+                checkNumBtn.disabled = true;
+                checkNumBtn.style.opacity = .4;
+                //count = 0;
+                return
+            }
+        } else if(userNumb < randomNumber) {
+            count++;
+            checkedNums.push(userNumb);
+            showGameMessage(`Загадане число більше <b>${userNumb}</b>`);
+            showNumbersList(`${String(checkedNums)}    <br>Залишилось спроб: <b>${settings.attemptsNumb - count}</b>`);
+            console.log('count: '+count);
+            if(count === +settings.attemptsNumb) {
+                showGameMessage('Нажаль <b>Ви програли...</b> Натисніть "Нова гра", щоб зіграти ще');
+                checkNumBtn.disabled = true;
+                checkNumBtn.style.opacity = .4;
+                //count = 0;
+                return
+            }
+        } else if(userNumb === randomNumber) {
+            showGameMessage(`<b>Вітаємо! Ви вгадали число ${randomNumber}</b>. Натисніть "Нова гра", щоб зіграти ще`);
+            showNumbersList(`${String(checkedNums)}    <br>Залишилось спроб: <b>${settings.attemptsNumb - count}</b>`);
+            checkNumBtn.disabled = true;
+            checkNumBtn.style.opacity = .4;
+            return
+        } else 
+           
+        console.log(checkedNums);
+    })
 }
-
 
 function getInitialSettings() {
     const numbFromInput = document.getElementById('start_numb');
@@ -86,12 +109,12 @@ function getInitialSettings() {
 
 function showGameMessage(message) {
     const messageBlock = document.querySelector('.app-form__game-message');
-    messageBlock.textContent = message;
+    messageBlock.innerHTML = message;
 }
 
 function showNumbersList(numList) {
     const numListEl = document.querySelector('.app-form__attempts-nums');
-    numListEl.innerText = `Ви вже спробували числа: ${numList}`;
+    numListEl.innerHTML = `Ви вже спробували числа: ${numList}`;
 }
 
 function hideSettingsBlock() {
@@ -104,8 +127,20 @@ function hideSettingsBlock() {
 function showGameBlock() {
     const gameBlock = document.querySelector('.app-form__guess-number-block');
     gameBlock.style.opacity = 1;
+    gameBlock.style.height = 'auto';
 }
-//getInitialSettings();
 
+function checkMaxRange() {
+    const minNumIput = document.getElementById('start_numb');
+    const maxNumInput = document.getElementById('end_numb');
+    maxNumInput.setAttribute('min', +minNumIput.value+2);
+    if(+maxNumInput.value < +minNumIput.value) {
+        maxNumInput.value = +minNumIput.value+2
+    }
+}
+
+
+//getInitialSettings();
+//checkMaxRange() 
 //generateRandomNumber(10, 20);
 gameStart()

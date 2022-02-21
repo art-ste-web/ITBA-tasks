@@ -15,13 +15,13 @@
                 <p>Виберіть діапазон, в якому потрібно буде відгадати число:</p>
                 <div>
                     <label for="start_numb">Від:</label>
-                    <input id="start_numb" type="number" value="0">
+                    <input id="start_numb" type="number" value="0" min="0">
                     <label for="end_numb">До:</label>
-                    <input id="end_numb" type="number" value="10">
+                    <input id="end_numb" type="number" value="10" min="0">
                 </div>
                 <div>
                     <label for="attempts">Виберіть кількість спроб:</label>
-                    <input id="attempts" type="number" value="5">
+                    <input id="attempts" type="number" value="5" min="1">
                 </div>
                 <div>
                     <button id="start_game_btn">Почати гру</button>
@@ -30,7 +30,7 @@
             <div class="app-form__guess-number-block">
                 <div class="app-form__guess-number-input">
                     <label for="enter_numb">Введіть число:</label>
-                    <input id="enter_numb" type="number">
+                    <input id="enter_numb" type="number" min="0">
                 </div>
                 <div>
                     <button id="check_numb_btn">Перевірити!</button>
