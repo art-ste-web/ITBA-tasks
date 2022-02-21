@@ -3,6 +3,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
+    
 }
 .app-container {
     display: flex;
@@ -10,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #e9e9e9;
+    background-image: linear-gradient(to right top, #4ab1ff, #7fb5f7, #9fbaef, #b6c0e6, #c6c7dd, #c6c9de, #c7cbe0, #c7cde1, #b4cbec, #97cbf4, #6cccf9, #07cef8);
 }
 .app-form {
     max-width: 640px;
