@@ -97,8 +97,15 @@ body {
     border-radius: 8px;
 }
 @media screen and (max-width: 900px) {
+    body {
+        min-width: auto;
+    }
     .app-form__initial-settings {
         height: auto;
         
+    }
+    .app-form__initial-settings > div {
+        display: flex;
+        flex-direction: column;
     }
 }
